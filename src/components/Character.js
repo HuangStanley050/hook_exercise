@@ -55,9 +55,20 @@ const Character = props => {
   //   }
   // }
 
+  //=========== componentDidUpdate componentDidMount==================//
   useEffect(() => {
     fetchData();
+    return () => {
+      console.log("cleaning...up");
+    };
   }, [props.selectedChar]);
+
+  //============ componentWillUnMount ====================//
+  useEffect(() => {
+    return () => {
+      console.log("component did unmount");
+    };
+  }, []);
 
   // componentWillUnmount() {
   //   console.log('Too soon...');
@@ -82,4 +93,4 @@ const Character = props => {
   return content;
 };
 
-export default Character;
+export default React.memo(Character);
