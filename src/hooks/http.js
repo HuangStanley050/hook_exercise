@@ -17,14 +17,6 @@ export const useHttp = (url, dependencies) => {
       .then(data => {
         setIsLoading(false);
         setFetchData(data);
-        // const selectedCharacters = charData.results.slice(0, 5);
-
-        // setLoadedChars(
-        //   selectedCharacters.map((char, index) => ({
-        //     name: char.name,
-        //     id: index + 1
-        //   }))
-        // );
       })
       .catch(err => {
         console.log(err);

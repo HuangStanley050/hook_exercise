@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 /*global fetch */
 import "./CharPicker.css";
 import { useHttp } from "../hooks/http";
@@ -6,12 +6,12 @@ import { useHttp } from "../hooks/http";
 const CharPicker = props => {
   const [isLoading, fetchedData] = useHttp("https://swapi.co/api/people", []);
 
-  const selectedCharacters = fetchedData.results
-    .slice(0, 5)
-    .map((char, index) => ({
-      name: char.name,
-      id: index + 1
-    }));
+  const selectedCharacters = fetchedData
+    ? fetchedData.results.slice(0, 5).map((char, index) => ({
+        name: char.name,
+        id: index + 1
+      }))
+    : [];
 
   let content = <p>Loading characters...</p>;
 
