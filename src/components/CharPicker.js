@@ -6,29 +6,32 @@ const CharPicker = props => {
   const [loadedChars, setLoadedChars] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // componentDidMount() {
-  //   this.setState({ isLoading: true });
-  //   fetch("https://swapi.co/api/people")
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch.");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(charData => {
-  //       const selectedCharacters = charData.results.slice(0, 5);
-  //       this.setState({
-  //         characters: selectedCharacters.map((char, index) => ({
-  //           name: char.name,
-  //           id: index + 1
-  //         })),
-  //         isLoading: false
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
+  useEffect(() => {
+    setIsLoading(true);
+    fetch("https://swapi.co/api/people")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch.");
+        }
+        return response.json();
+      })
+      .then(charData => {
+        setIsLoading(false);
+
+        const selectedCharacters = charData.results.slice(0, 5);
+
+        setLoadedChars(
+          selectedCharacters.map((char, index) => ({
+            name: char.name,
+            id: index + 1
+          }))
+        );
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, []);
 
   let content = <p>Loading characters...</p>;
 
